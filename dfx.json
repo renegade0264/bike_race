@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "racegame_backend": {
+      "main": "src/racegame_backend/main.mo",
+      "type": "motoko"
+    },
+    "racegame_frontend": {
+      "dependencies": [
+        "racegame_backend"
+      ],
+      "source": [
+        "src/racegame_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "racegame_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
