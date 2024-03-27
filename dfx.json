@@ -1,18 +1,11 @@
 {
   "canisters": {
-    "racegame_backend": {
-      "main": "src/racegame_backend/main.mo",
-      "type": "motoko"
-    },
-    "racegame_frontend": {
-      "dependencies": [
-        "racegame_backend"
-      ],
+    "frontend": {
       "source": [
-        "src/racegame_frontend/dist"
+        "src/dist"
       ],
       "type": "assets",
-      "workspace": "racegame_frontend"
+      "workspace": "frontend"
     }
   },
   "defaults": {
