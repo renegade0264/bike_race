@@ -15,7 +15,7 @@ h1{
     border: none; /* Remove button border */
     border-radius: 4px; /* Rounded corners */
     cursor: pointer; /* Cursor on hover */
-    font-size: 16px; /* Font size */
+    font-size: 25px; /* Font size */
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 

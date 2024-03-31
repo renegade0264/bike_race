@@ -5,7 +5,7 @@ import { IcrcLedgerCanister } from "@dfinity/ledger-icrc";
 import { createAgent } from "@dfinity/utils";
 import '../assets/login.css';
 
-function Login({ onConnected }) {
+function Login({onConnected}) {
     //function for plug wallet
     const whitelist = [process.env.CANISTER_ID];
     const handlePlugConnect = async () => {
@@ -23,7 +23,7 @@ function Login({ onConnected }) {
 
             localStorage.setItem('walletType', 'plug');
             localStorage.setItem('isConnected', 'true');
-            localStorage.setItem('plugPrincipalId', JSON.stringify(window.ic.plug.principalId));
+            localStorage.setItem('plugPrincipalId', window.ic.plug.principalId);
             onConnected();
         }
     };
@@ -38,9 +38,8 @@ function Login({ onConnected }) {
             // console.log(identity);
             localStorage.setItem('walletType', 'stoic');
             localStorage.setItem('isConnected', 'true');
-            localStorage.setItem('stoicPrincipalId', JSON.stringify(identity._principal.toText()));
-            // localStorage.setItem('stoicIdentity',identity)
-            // console.log(localStorage.getItem('stoicIdentity'));
+            localStorage.setItem('stoicPrincipalId', identity._principal);
+            
             onConnected();
         })
     };
