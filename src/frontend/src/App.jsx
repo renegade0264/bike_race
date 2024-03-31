@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Canvas } from "@react-three/fiber";
-import { Experience } from "./components/Experience";
-import { Suspense } from "react";
-import { Physics } from '@react-three/rapier';
 import Login from "./components/Login";
 import { StoicIdentity } from "ic-stoic-identity";
 import { Principal } from '@dfinity/principal';
 import './assets/app.css';
-import { Actor,HttpAgent } from '@dfinity/agent';
+import { Actor, HttpAgent } from '@dfinity/agent';
 import { idlFactory } from '../candid/ledger.did.js';
 
 function App() {
@@ -109,23 +105,44 @@ function App() {
 	useEffect(() => {
 		verifyConnection();
 	}, []);
+	
+	useEffect(() => {
+		if (isUserConnected) {
+		  const script = document.createElement('script');
+		  script.src = './app.js' 
+		  script.async = true;
+		  document.body.appendChild(script);
+	
+		  // clean up when the component unmounts or user logs out
+		  return () => {
+			// document.body.removeChild(script);
+		  };
+		}
+	  }, [isUserConnected]);
 
 	return (
 		<>
 			{isUserConnected == true ? (
 				<>
-				<div className="balance-container">
-					<h1>Balance : {isLoading ? "Fetching..." : (`${userBalance}`)}</h1>
-					<button className='logout-button' onClick={handleLogout}>Logout</button>
-				</div>
-				<Canvas shadows camera={{ position: [3, 3, 3], fov: 30 }}>
-				  <Suspense>
-				    <Physics>
-				      <color attach="background" args={["#ececec"]} />
-				      <Experience />
-				    </Physics>
-				  </Suspense>
-				</Canvas>
+					<div className="balance-container">
+						<h1>Balance : {isLoading ? "Fetching..." : (`${userBalance}`)}</h1>
+						<button className='logout-button' onClick={handleLogout}>Logout</button>
+					</div>
+					<div id="unity-container" className="unity-desktop">
+						<canvas id="unity-canvas" width="960" height="600"></canvas>
+						<div id="unity-loading-bar">
+							<div id="unity-logo"></div>
+							<div id="unity-progress-bar-empty">
+								<div id="unity-progress-bar-full"></div>
+							</div>
+						</div>
+						<div id="unity-warning"> </div>
+						<div id="unity-footer">
+							<div id="unity-webgl-logo"></div>
+							<div id="unity-fullscreen-button"></div>
+							<div id="unity-build-title">Bike Racing</div>
+						</div>
+					</div>
 				</>
 			) : (
 				// Render the Login component if not connected
@@ -133,7 +150,8 @@ function App() {
 					setIsUserConnected(true);
 					await fetchBalance();
 				}} />
-			)}
+			)
+			}
 		</>
 	);
 }
