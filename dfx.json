@@ -1,8 +1,8 @@
 {
   "canisters": {
     "frontend": {
-      "source": [
-        "src/dist"
+      "source": [ 
+        "src/dist_old"
       ],
       "type": "assets",
       "workspace": "frontend"

@@ -1,0 +1,24 @@
+.balance-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{
+    margin: 20px 20px;
+}
+.logout-button {
+    padding: 8px 16px; /* Adjust padding as needed */
+    margin: 20px 20px; /* Adjust margin as needed */
+    background-color: #4f46e5; /* Button background color */
+    color: #ffffff; /* Button text color */
+    border: none; /* Remove button border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Cursor on hover */
+    font-size: 25px; /* Font size */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.logout-button:hover {
+    background-color: #625bf9; /* Darker color on hover */
+}
