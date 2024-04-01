@@ -106,6 +106,7 @@ function App() {
 		localStorage.setItem('isConnected', 'false');
 		setIsUserConnected(false); // Update the connection state
 		setUserBalance(null); // Optionally reset the user balance or other related state
+		window.location.reload();
 	};
 
 	useEffect(() => {
