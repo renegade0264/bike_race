@@ -132,7 +132,7 @@ function App() {
 			{isUserConnected == true ? (
 				<>
 					<div className="balance-container">
-						<h1>Balance : {isLoading ? "Fetching..." : (`${userBalance}`)}</h1>
+						<h1></h1>
 						<button className='logout-button' onClick={handleLogout}>Logout</button>
 					</div>
 					<div id="unity-container" className="unity-desktop">
@@ -147,9 +147,10 @@ function App() {
 						<div id="unity-footer">
 							<div id="unity-webgl-logo"></div>
 							<div id="unity-fullscreen-button"></div>
+							<div><h1>Balance : {isLoading ? "Fetching..." : (`${userBalance}`)}</h1> </div>
 							<div id="unity-build-title">Bike Racing</div>
 						</div>
-					</div>
+					</div>					
 				</>
 			) : (
 				// Render the Login component if not connected
