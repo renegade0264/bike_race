@@ -5,6 +5,7 @@ import { Principal } from '@dfinity/principal';
 import './assets/app.css';
 import { Actor, HttpAgent } from '@dfinity/agent';
 import { idlFactory } from '../candid/ledger.did.js';
+import { createAgent } from '@dfinity/utils';
 
 function App() {
 
@@ -43,20 +44,23 @@ function App() {
 				canisterId,
 			});
 
+			//get balance
 			const balance = await actor.icrc1_balance_of({
 				owner: principalId,
 				subaccount: [],
 			});
+			const decimals = await actor.icrc1_decimals();
+			const balanceFormatted = (Number(balance) / (10 ** decimals)).toFixed(2);
 
-			setUserBalance(balance);
+			setUserBalance(balanceFormatted);
 			setIsLoading(false);
 		}
 
 		else if (walletType === 'stoic') {
 			const principalId = localStorage.getItem('stoicPrincipalId');
 			const args = {};
-			args.identity = undefined;
-			args.host = 'https://ic0.app'
+			args.identity = await StoicIdentity.load();
+			args.host = 'https://ic0.app';
 			const agent = new HttpAgent(args)
 			if (process.env.NODE_ENV === 'development') {
 				agent.fetchRootKey()
@@ -66,14 +70,16 @@ function App() {
 				agent,
 				canisterId,
 			});
-			// console.log(actor);
 
+			//get balance
 			const balance = await actor.icrc1_balance_of({
 				owner: Principal.fromText(principalId),
 				subaccount: [],
 			});
-			// console.log(balance);
-			setUserBalance(balance);
+			const decimals = await actor.icrc1_decimals();
+			const balanceFormatted = (Number(balance) / (10 ** decimals)).toFixed(2);
+
+			setUserBalance(balanceFormatted);
 			setIsLoading(false);
 		}
 		else {
@@ -105,20 +111,20 @@ function App() {
 	useEffect(() => {
 		verifyConnection();
 	}, []);
-	
+
 	useEffect(() => {
 		if (isUserConnected) {
-		  const script = document.createElement('script');
-		  script.src = './app.js' 
-		  script.async = true;
-		  document.body.appendChild(script);
-	
-		  // clean up when the component unmounts or user logs out
-		  return () => {
-			// document.body.removeChild(script);
-		  };
+			const script = document.createElement('script');
+			script.src = './app.js'
+			script.async = true;
+			document.body.appendChild(script);
+
+			// clean up when the component unmounts or user logs out
+			return () => {
+				// document.body.removeChild(script);
+			};
 		}
-	  }, [isUserConnected]);
+	}, [isUserConnected]);
 
 	return (
 		<>
